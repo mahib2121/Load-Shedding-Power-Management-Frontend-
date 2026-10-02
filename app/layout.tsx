@@ -3,8 +3,9 @@ import { Geist, Geist_Mono, Raleway } from "next/font/google";
 
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { ThemeProvider } from "./providers/theme-provider";
+import { ThemeProvider } from "../providers/theme-provider";
 import { QueryProvider } from "@/providers/query-provider";
+
 const raleway = Raleway({
   subsets: ["latin"],
   variable: "--font-sans",
