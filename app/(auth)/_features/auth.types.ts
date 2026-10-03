@@ -4,13 +4,19 @@ export type UserRole =
   | "ZONE_MANAGER"
   | "SUPER_ADMIN";
 
-export interface UserLocation {
+export type UserArea = {
   id: string;
   name: string;
   code: string;
-}
+};
 
-export interface User {
+export type UserZone = {
+  id: string;
+  name: string;
+  code: string;
+};
+
+export type User = {
   id: string;
   name: string;
   email: string;
@@ -20,18 +26,15 @@ export interface User {
   jobType: string | null;
 
   isActive: boolean;
-
   areaId: string | null;
   zoneId: string | null;
-
+  area: UserArea | null;
+  zone: UserZone | null;
   createdAt: string;
   updatedAt: string;
+};
 
-  area: UserLocation | null;
-  zone: UserLocation | null;
-}
-
-export interface AuthTokens {
+export type AuthTokens = {
   accessToken: string;
   refreshToken: string;
-}
+};

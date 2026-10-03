@@ -12,8 +12,34 @@ export const API_ROUTES = {
     me: `${API_PREFIX}/auth/me`,
   },
 
-  schedules: {
-    base: `${API_PREFIX}/load-shedding/schedules`,
+  loadShedding: {
+    schedules: `${API_PREFIX}/load-shedding/schedules`,
+
+    mySchedule: `${API_PREFIX}/load-shedding/my-schedule`,
+
+    scheduleById: (scheduleId: string) =>
+      `${API_PREFIX}/load-shedding/schedules/${scheduleId}`,
+
+    scheduleSlots: (scheduleId: string) =>
+      `${API_PREFIX}/load-shedding/schedules/${scheduleId}/slots`,
+
+    createSlot: (scheduleId: string) =>
+      `${API_PREFIX}/load-shedding/schedules/${scheduleId}/slots`,
+
+    deleteSlot: (slotId: string) =>
+      `${API_PREFIX}/load-shedding/slots/${slotId}`,
+
+    submit: (scheduleId: string) =>
+      `${API_PREFIX}/load-shedding/schedules/${scheduleId}/submit`,
+
+    approve: (scheduleId: string) =>
+      `${API_PREFIX}/load-shedding/schedules/${scheduleId}/approve`,
+
+    reject: (scheduleId: string) =>
+      `${API_PREFIX}/load-shedding/schedules/${scheduleId}/reject`,
+
+    activate: (scheduleId: string) =>
+      `${API_PREFIX}/load-shedding/schedules/${scheduleId}/activate`,
   },
 
   outages: {

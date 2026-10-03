@@ -60,8 +60,8 @@ export default function DashboardPage() {
           <InfoItem label="Email" value={user?.email} />
           <InfoItem label="Role" value={user?.role?.replaceAll("_", " ")} />
           <InfoItem label="Job Type" value={user?.jobType} />
-          <InfoItem label="Zone" value={user?.location?.zone?.name} />
-          <InfoItem label="Area" value={user?.location?.area?.name} />
+          <InfoItem label="Zone" value={user?.zone?.name} />
+          <InfoItem label="Area" value={user?.area?.name} />
         </div>
       </div>
     </div>
