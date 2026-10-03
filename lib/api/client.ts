@@ -7,10 +7,6 @@ export const api = ofetch.create({
 
   credentials: "include",
 
-  headers: {
-    "Content-Type": "application/json",
-  },
-
   onResponseError({ response }) {
     const data = response._data as {
       message?: string;

@@ -5,6 +5,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "../providers/theme-provider";
 import { QueryProvider } from "@/providers/query-provider";
+import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "./(auth)/_features/auth.provider";
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -47,7 +49,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           enableSystem
           disableTransitionOnChange
         >
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <AuthProvider>{children}</AuthProvider>
+            <Toaster />
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>
