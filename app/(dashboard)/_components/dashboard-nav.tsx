@@ -10,9 +10,16 @@ import { roleNavigation } from "../_config/navigation";
 
 export function DashboardNav() {
   const pathname = usePathname();
-  const { user } = useAuth();
 
-  if (!user) return null;
+  const { user, isLoading } = useAuth();
+
+  if (isLoading) {
+    return <DashboardNavSkeleton />;
+  }
+
+  if (!user) {
+    return null;
+  }
 
   const items = roleNavigation[user.role];
 
@@ -42,6 +49,16 @@ export function DashboardNav() {
           </Link>
         );
       })}
+    </nav>
+  );
+}
+
+function DashboardNavSkeleton() {
+  return (
+    <nav className="space-y-2">
+      {Array.from({ length: 5 }).map((_, index) => (
+        <div key={index} className="h-10 animate-pulse rounded-lg bg-muted" />
+      ))}
     </nav>
   );
 }

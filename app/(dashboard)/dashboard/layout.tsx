@@ -4,13 +4,11 @@ import { DashboardHeader } from "../_components/dashboard-header";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen bg-muted/30">
+    <div className="min-h-screen bg-background">
       <DashboardSidebar />
-
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="min-h-screen md:pl-64">
         <DashboardHeader />
-
-        <main className="flex-1 p-4 md:p-6">{children}</main>
+        <main className="p-4 md:p-6">{children}</main>
       </div>
     </div>
   );

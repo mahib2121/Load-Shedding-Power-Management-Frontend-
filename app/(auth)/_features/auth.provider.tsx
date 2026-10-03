@@ -1,11 +1,13 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useMemo } from "react";
 
 import { useRouter } from "next/navigation";
+
 import { useQueryClient } from "@tanstack/react-query";
 
-import { getMe, refreshToken, logout as logoutRequest } from "./auth.api";
+import { refreshToken, logout as logoutRequest } from "./auth.api";
+import { AUTH_QUERY_KEYS, useGetMe } from "./auth.hook";
 
 import type { User } from "./auth.types";
 
@@ -22,71 +24,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const meQuery = useGetMe();
 
-  useEffect(() => {
-    let mounted = true;
+  const user = meQuery.data?.data ?? null;
 
-    async function loadSession() {
-      try {
-        const response = await getMe();
-
-        if (mounted) {
-          setUser(response.data);
-        }
-      } catch {
-        try {
-          await refreshToken();
-
-          const response = await getMe();
-
-          if (mounted) {
-            setUser(response.data);
-          }
-        } catch {
-          if (mounted) {
-            setUser(null);
-          }
-        }
-      } finally {
-        if (mounted) {
-          setIsLoading(false);
-        }
-      }
-    }
-
-    loadSession();
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  async function logout() {
+  const logout = useCallback(async () => {
     try {
       await logoutRequest();
     } finally {
-      setUser(null);
+      // Remove the authenticated user from the cache.
+      queryClient.removeQueries({
+        queryKey: AUTH_QUERY_KEYS.me,
+      });
 
+      // Clear other cached application data.
       queryClient.clear();
 
       router.replace("/login");
     }
-  }
+  }, [queryClient, router]);
 
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isLoading,
-        isAuthenticated: !!user,
-        logout,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+  const value = useMemo<AuthContextValue>(
+    () => ({
+      user,
+      isLoading: meQuery.isLoading || meQuery.isFetching,
+      isAuthenticated: !!user,
+      logout,
+    }),
+    [user, meQuery.isLoading, meQuery.isFetching, logout],
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {

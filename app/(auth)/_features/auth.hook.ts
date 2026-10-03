@@ -11,6 +11,10 @@ import {
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 
+export const AUTH_QUERY_KEYS = {
+  me: ["auth", "me"] as const,
+};
+
 export function useLogin() {
   return useMutation({
     mutationFn: login,
@@ -55,8 +59,17 @@ export function useRefreshToken() {
 
 export function useGetMe() {
   return useQuery({
-    queryKey: ["auth", "me"],
+    queryKey: AUTH_QUERY_KEYS.me,
     queryFn: getMe,
     retry: false,
+
+    // User identity/role doesn't need to be refetched constantly.
+    staleTime: 5 * 60 * 1000,
+
+    // Keep the cached user around between component lifecycles.
+    gcTime: 30 * 60 * 1000,
+
+    // Don't refetch /me every time the browser window gets focus.
+    refetchOnWindowFocus: false,
   });
 }
