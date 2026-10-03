@@ -1,37 +1,17 @@
-"use client";
+import type { ReactNode } from "react";
+import { DashboardSidebar } from "../_components/dashboard-sidebar";
+import { DashboardHeader } from "../_components/dashboard-header";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+export default function DashboardLayout({ children }: { children: ReactNode }) {
+  return (
+    <div className="flex min-h-screen bg-muted/30">
+      <DashboardSidebar />
 
-import { Spinner } from "@/components/ui/spinner";
-import { useAuth } from "@/app/(auth)/_features/auth.provider";
+      <div className="flex min-w-0 flex-1 flex-col">
+        <DashboardHeader />
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const router = useRouter();
-
-  const { user, isLoading, isAuthenticated } = useAuth();
-
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.replace("/login");
-    }
-  }, [isLoading, isAuthenticated, router]);
-
-  if (isLoading) {
-    return (
-      <div className="flex min-h-svh items-center justify-center">
-        <Spinner className="size-6" />
+        <main className="flex-1 p-4 md:p-6">{children}</main>
       </div>
-    );
-  }
-
-  if (!user) {
-    return null;
-  }
-
-  return <>{children}</>;
+    </div>
+  );
 }
