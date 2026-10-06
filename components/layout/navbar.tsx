@@ -58,7 +58,7 @@ export function Navbar() {
           <div className="flex items-center gap-2">
             {isAuthenticated && user ? (
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+                <DropdownMenuTrigger>
                   <Button variant="ghost" className="flex items-center gap-2">
                     <div className="flex size-8 items-center justify-center rounded-full bg-primary/10 text-sm font-medium text-primary">
                       {user.name.charAt(0).toUpperCase()}
@@ -85,7 +85,7 @@ export function Navbar() {
                   <DropdownMenuSeparator />
 
                   {/* Dashboard */}
-                  <DropdownMenuItem asChild>
+                  <DropdownMenuItem>
                     <Link href="/dashboard" className="cursor-pointer">
                       <LayoutDashboard className="mr-2 size-4" />
                       Dashboard
@@ -93,7 +93,7 @@ export function Navbar() {
                   </DropdownMenuItem>
 
                   {/* Profile */}
-                  <DropdownMenuItem asChild>
+                  <DropdownMenuItem>
                     <Link href="/dashboard/profile" className="cursor-pointer">
                       <User className="mr-2 size-4" />
                       Profile
@@ -114,11 +114,11 @@ export function Navbar() {
               </DropdownMenu>
             ) : (
               <>
-                <Button variant="ghost" asChild>
+                <Button variant="ghost">
                   <Link href="/login">Login</Link>
                 </Button>
 
-                <Button asChild>
+                <Button>
                   <Link href="/register">Register</Link>
                 </Button>
               </>

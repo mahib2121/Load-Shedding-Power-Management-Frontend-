@@ -41,9 +41,18 @@ export const API_ROUTES = {
     activate: (scheduleId: string) =>
       `${API_PREFIX}/load-shedding/schedules/${scheduleId}/activate`,
   },
-
   outages: {
     base: `${API_PREFIX}/outages`,
+
+    reports: `${API_PREFIX}/outages/reports`,
+
+    verify: (outageId: string) => `${API_PREFIX}/outages/${outageId}/verify`,
+
+    assign: (outageId: string) => `${API_PREFIX}/outages/${outageId}/assign`,
+
+    start: (outageId: string) => `${API_PREFIX}/outages/${outageId}/start`,
+
+    restore: (outageId: string) => `${API_PREFIX}/outages/${outageId}/restore`,
   },
 
   payments: {
