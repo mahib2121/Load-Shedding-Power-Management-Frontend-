@@ -50,7 +50,6 @@ export const roleNavigation: Record<UserRole, NavItem[]> = {
       icon: UserRound,
     },
   ],
-
   FIELD_OPERATOR: [
     ...commonItems,
     {
@@ -59,7 +58,7 @@ export const roleNavigation: Record<UserRole, NavItem[]> = {
       icon: ClipboardList,
     },
     {
-      title: "Outages",
+      title: "Outage Management",
       href: "/dashboard/outages",
       icon: Zap,
     },
@@ -74,7 +73,6 @@ export const roleNavigation: Record<UserRole, NavItem[]> = {
       icon: UserRound,
     },
   ],
-
   ZONE_MANAGER: [
     ...commonItems,
     {

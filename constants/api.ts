@@ -53,6 +53,7 @@ export const API_ROUTES = {
     start: (outageId: string) => `${API_PREFIX}/outages/${outageId}/start`,
 
     restore: (outageId: string) => `${API_PREFIX}/outages/${outageId}/restore`,
+    myReports: `${API_PREFIX}/outages/my-reports`,
   },
 
   payments: {
@@ -60,5 +61,8 @@ export const API_ROUTES = {
     initialize: (paymentId: string) =>
       `${API_PREFIX}/payments/${paymentId}/initialize`,
     myPayments: `${API_PREFIX}/payments/my-payments`,
+  },
+  users: {
+    profileImage: "/api/v1/users/profile-image",
   },
 } as const;
