@@ -59,5 +59,6 @@ export const API_ROUTES = {
     base: `${API_PREFIX}/payments`,
     initialize: (paymentId: string) =>
       `${API_PREFIX}/payments/${paymentId}/initialize`,
+    myPayments: `${API_PREFIX}/payments/my-payments`,
   },
 } as const;

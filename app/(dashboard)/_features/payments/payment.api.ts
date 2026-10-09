@@ -1,9 +1,8 @@
 import { api } from "@/lib/api/client";
-
 import type { ApiResponse } from "@/lib/api/types";
-
-import type { InitializePaymentResponse } from "./payment.types";
 import { API_ROUTES } from "@/constants/api";
+
+import type { InitializePaymentResponse, Payment } from "./payment.types";
 
 export async function initializePayment(
   paymentId: string,
@@ -14,4 +13,10 @@ export async function initializePayment(
       method: "POST",
     },
   );
+}
+
+export async function getMyPayments(): Promise<ApiResponse<Payment[]>> {
+  return api<ApiResponse<Payment[]>>(API_ROUTES.payments.myPayments, {
+    method: "GET",
+  });
 }
