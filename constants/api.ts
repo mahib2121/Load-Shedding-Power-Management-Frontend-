@@ -43,8 +43,9 @@ export const API_ROUTES = {
   },
   outages: {
     base: `${API_PREFIX}/outages`,
-
+    list: `${API_PREFIX}/outages`,
     reports: `${API_PREFIX}/outages/reports`,
+    myReports: `${API_PREFIX}/outages/my-reports`,
 
     verify: (outageId: string) => `${API_PREFIX}/outages/${outageId}/verify`,
 
@@ -53,7 +54,6 @@ export const API_ROUTES = {
     start: (outageId: string) => `${API_PREFIX}/outages/${outageId}/start`,
 
     restore: (outageId: string) => `${API_PREFIX}/outages/${outageId}/restore`,
-    myReports: `${API_PREFIX}/outages/my-reports`,
   },
 
   payments: {

@@ -81,3 +81,49 @@ export type MyOutageReport = {
   payment?: MyOutageReportPayment | null;
   outage?: MyOutageReportOutage | null;
 };
+
+export type OperationalOutageStatus =
+  | "REPORTED"
+  | "VERIFIED"
+  | "ASSIGNED"
+  | "IN_PROGRESS"
+  | "RESTORED"
+  | "REJECTED";
+
+export type OperationalOutage = {
+  id: string;
+  status: OperationalOutageStatus | string;
+  createdAt: string;
+  updatedAt?: string;
+
+  area?: {
+    id: string;
+    name: string;
+    code?: string;
+  } | null;
+
+  feeder?: {
+    id: string;
+    name: string;
+    code?: string;
+  } | null;
+
+  zone?: {
+    id: string;
+    name: string;
+    code?: string;
+  } | null;
+
+  assignments?: Array<{
+    id: string;
+    status: string;
+    technician?: {
+      id: string;
+      name: string;
+    } | null;
+  }>;
+
+  _count?: {
+    reports?: number;
+  };
+};
