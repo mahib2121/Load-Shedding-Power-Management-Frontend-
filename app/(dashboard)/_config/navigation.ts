@@ -63,11 +63,6 @@ export const roleNavigation: Record<UserRole, NavItem[]> = {
       icon: Zap,
     },
     {
-      title: "Schedules",
-      href: "/dashboard/schedules",
-      icon: CalendarDays,
-    },
-    {
       title: "Profile",
       href: "/dashboard/profile",
       icon: UserRound,

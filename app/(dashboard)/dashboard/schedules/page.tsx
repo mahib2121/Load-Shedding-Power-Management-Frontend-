@@ -1,62 +1,38 @@
 "use client";
 
-import { CalendarDays, RefreshCw } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-
 import { useAuth } from "@/app/(auth)/_features/auth.provider";
-import {
-  useMySchedule,
-  useSchedules,
-} from "../../_features/schedules/schedule.hook";
-import { ScheduleList } from "../../_components/schedule-list";
+
+import { CustomerScheduleView } from "./_views/customer-schedule-view";
+import { ManagerSchedulesView } from "./_views/manager-schedules-view";
 
 export default function SchedulesPage() {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
 
-  const isCustomer = user?.role === "CUSTOMER";
+  if (isLoading) {
+    return (
+      <div className="space-y-4">
+        <div className="h-8 w-48 animate-pulse rounded bg-muted" />
+        <div className="h-48 animate-pulse rounded-xl bg-muted" />
+      </div>
+    );
+  }
 
-  const managerQuery = useSchedules();
-  const customerQuery = useMySchedule();
+  switch (user?.role) {
+    case "CUSTOMER":
+      return <CustomerScheduleView />;
 
-  const query = isCustomer ? customerQuery : managerQuery;
+    case "ZONE_MANAGER":
+    case "SUPER_ADMIN":
+      return <ManagerSchedulesView />;
 
-  const schedules = query.data;
-
-  return (
-    <div className="space-y-6">
-      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-        <div>
-          <div className="flex items-center gap-2">
-            <CalendarDays className="size-6" />
-
-            <h1 className="text-2xl font-bold tracking-tight">
-              Load Shedding Schedules
-            </h1>
-          </div>
-
-          <p className="mt-1 text-muted-foreground">
-            View and manage load shedding schedules for your area.
+    default:
+      return (
+        <div className="rounded-lg border p-6">
+          <h1 className="font-semibold">Schedules unavailable</h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Your account does not have access to load-shedding schedules.
           </p>
         </div>
-
-        <Button
-          variant="outline"
-          onClick={() => query.refetch()}
-          disabled={query.isFetching}
-        >
-          <RefreshCw
-            className={`mr-2 size-4 ${query.isFetching ? "animate-spin" : ""}`}
-          />
-          Refresh
-        </Button>
-      </div>
-
-      <ScheduleList
-        schedules={schedules}
-        isLoading={query.isLoading}
-        isError={query.isError}
-      />
-    </div>
-  );
+      );
+  }
 }

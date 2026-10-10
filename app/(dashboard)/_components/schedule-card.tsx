@@ -34,7 +34,8 @@ export function ScheduleCard({ schedule }: ScheduleCardProps) {
 
         <span
           className={`rounded-full px-2.5 py-1 text-xs font-medium ${
-            statusStyles[schedule.status]
+            statusStyles[schedule.status as keyof typeof statusStyles] ??
+            "bg-muted text-muted-foreground"
           }`}
         >
           {schedule.status.replaceAll("_", " ")}

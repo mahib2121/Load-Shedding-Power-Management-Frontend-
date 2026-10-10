@@ -11,9 +11,7 @@ export default function DashboardPage() {
 
   const isCustomer = user?.role === "CUSTOMER";
 
-  const myScheduleQuery = useMySchedule({
-    enabled: Boolean(user && isCustomer),
-  });
+  const myScheduleQuery = useMySchedule();
 
   if (isAuthLoading) {
     return <DashboardSkeleton />;
