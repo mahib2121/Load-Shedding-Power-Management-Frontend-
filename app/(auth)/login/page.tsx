@@ -51,6 +51,15 @@ export default function LoginPage() {
                   <div className="flex justify-center">
                     <GoogleSignInButton />
                   </div>
+
+                  <div className="flex justify-end">
+                    <Link
+                      href="/forgot-password"
+                      className="text-sm font-medium text-primary underline-offset-4 hover:underline"
+                    >
+                      Forgot password?
+                    </Link>
+                  </div>
                 </div>
               </div>
 
