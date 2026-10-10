@@ -477,7 +477,8 @@ function ActiveScheduleBanner({ schedule }: { schedule: LoadSheddingSchedule }) 
         <div>
           <p className="text-sm font-semibold">{schedule.name}</p>
           <p className="text-xs text-muted-foreground">
-            {formatDate(schedule.date)} • {schedule.zone.name}
+            {formatDate(schedule.date)} •{" "}
+            {schedule.zone?.name ?? "Zone not assigned"}
           </p>
         </div>
       </div>
@@ -513,9 +514,11 @@ function ScheduleTimeline({ schedule }: { schedule: LoadSheddingSchedule }) {
           </span>
           <div className="flex flex-col gap-2 rounded-lg border bg-muted/20 p-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm font-medium">{slot.feeder.name}</p>
+              <p className="text-sm font-medium">
+                {slot.feeder?.name ?? "Feeder not assigned"}
+              </p>
               <p className="text-xs text-muted-foreground">
-                {slot.feeder.code}
+                {slot.feeder?.code ?? "—"}
               </p>
             </div>
             <div className="flex items-center gap-3 sm:flex-row-reverse sm:text-right">
@@ -552,7 +555,7 @@ function NextSlotCallout({
         </p>
         <p className="text-sm font-medium">
           {formatTime(slot.startTime)} – {formatTime(slot.endTime)} on{" "}
-          {slot.feeder.name}
+          {slot.feeder?.name ?? "your area"}
         </p>
         <p className="text-xs text-muted-foreground">
           Plan ahead — charge devices before this time.
