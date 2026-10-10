@@ -18,7 +18,12 @@ export type NavItem = {
   icon: React.ElementType;
 };
 
-const commonItems: NavItem[] = [
+export type NavSection = {
+  label?: string;
+  items: NavItem[];
+};
+
+const overview: NavItem[] = [
   {
     title: "Dashboard",
     href: "/dashboard",
@@ -26,113 +31,84 @@ const commonItems: NavItem[] = [
   },
 ];
 
-export const roleNavigation: Record<UserRole, NavItem[]> = {
+const operations: NavItem[] = [
+  {
+    title: "Schedules",
+    href: "/dashboard/schedules",
+    icon: CalendarDays,
+  },
+  {
+    title: "Outages",
+    href: "/dashboard/outages",
+    icon: Zap,
+  },
+  {
+    title: "Assignments",
+    href: "/dashboard/assignments",
+    icon: ClipboardList,
+  },
+];
+
+const management: NavItem[] = [
+  {
+    title: "Team",
+    href: "/dashboard/team",
+    icon: Users,
+  },
+  {
+    title: "Users",
+    href: "/dashboard/users",
+    icon: Users,
+  },
+  {
+    title: "Zones",
+    href: "/dashboard/zones",
+    icon: Map,
+  },
+  {
+    title: "Payments",
+    href: "/dashboard/payments",
+    icon: CreditCard,
+  },
+];
+
+const account: NavItem[] = [
+  {
+    title: "Profile",
+    href: "/dashboard/profile",
+    icon: UserRound,
+  },
+  {
+    title: "Settings",
+    href: "/dashboard/settings",
+    icon: Settings,
+  },
+];
+
+export const roleNavigation: Record<UserRole, NavSection[]> = {
   CUSTOMER: [
-    ...commonItems,
-    {
-      title: "Load Shedding",
-      href: "/dashboard/schedules",
-      icon: CalendarDays,
-    },
-    {
-      title: "Outages",
-      href: "/dashboard/outages",
-      icon: Zap,
-    },
-    {
-      title: "Payments",
-      href: "/dashboard/payments",
-      icon: CreditCard,
-    },
-    {
-      title: "Profile",
-      href: "/dashboard/profile",
-      icon: UserRound,
-    },
+    { items: overview },
+    { label: "Power", items: operations.filter((i) => i.href !== "/dashboard/assignments") },
+    { label: "Account", items: [
+      { title: "Payments", href: "/dashboard/payments", icon: CreditCard },
+      ...account,
+    ] },
   ],
   FIELD_OPERATOR: [
-    ...commonItems,
-    {
-      title: "Assignments",
-      href: "/dashboard/assignments",
-      icon: ClipboardList,
-    },
-    {
-      title: "Outage Management",
-      href: "/dashboard/outages",
-      icon: Zap,
-    },
-    {
-      title: "Profile",
-      href: "/dashboard/profile",
-      icon: UserRound,
-    },
+    { items: overview },
+    { label: "Field", items: operations.filter((i) => i.href !== "/dashboard/schedules" && i.href !== "/dashboard/zones") },
+    { label: "Account", items: [account[0]] },
   ],
   ZONE_MANAGER: [
-    ...commonItems,
-    {
-      title: "Schedules",
-      href: "/dashboard/schedules",
-      icon: CalendarDays,
-    },
-    {
-      title: "Outages",
-      href: "/dashboard/outages",
-      icon: Zap,
-    },
-    {
-      title: "Assignments",
-      href: "/dashboard/assignments",
-      icon: ClipboardList,
-    },
-    {
-      title: "Team",
-      href: "/dashboard/team",
-      icon: Users,
-    },
-    {
-      title: "Profile",
-      href: "/dashboard/profile",
-      icon: UserRound,
-    },
+    { items: overview },
+    { label: "Operations", items: operations },
+    { label: "Management", items: management.filter((i) => i.href === "/dashboard/team") },
+    { label: "Account", items: [account[0]] },
   ],
-
   SUPER_ADMIN: [
-    ...commonItems,
-    {
-      title: "Users",
-      href: "/dashboard/users",
-      icon: Users,
-    },
-    {
-      title: "Zones",
-      href: "/dashboard/zones",
-      icon: Map,
-    },
-    {
-      title: "Schedules",
-      href: "/dashboard/schedules",
-      icon: CalendarDays,
-    },
-    {
-      title: "Outages",
-      href: "/dashboard/outages",
-      icon: Zap,
-    },
-    {
-      title: "Payments",
-      href: "/dashboard/payments",
-      icon: CreditCard,
-    },
-    {
-      title: "Settings",
-      href: "/dashboard/settings",
-      icon: Settings,
-    },
-    {
-      title: "Profile",
-      href: "/dashboard/profile",
-      icon: UserRound,
-    },
+    { items: overview },
+    { label: "Operations", items: operations },
+    { label: "Management", items: management },
+    { label: "Account", items: account },
   ],
 };
