@@ -1,0 +1,46 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build artifacts
+.next
+out
+build
+dist
+
+# Git & metadata
+.git
+.gitignore
+.gitattributes
+
+# Local config & secrets
+.env
+.env.*
+!.env.example
+
+# Editor / OS noise
+.DS_Store
+.idea
+.vscode
+
+# Logs & caches
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.tsbuildinfo
+
+# Docker self-reference
+Dockerfile
+.dockerignore
+
+# Test / coverage
+coverage
+
+# Vercel
+.vercel
+
+# Agents / skills
+.agents
+skills-lock.json
